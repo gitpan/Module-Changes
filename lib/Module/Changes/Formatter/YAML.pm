@@ -6,7 +6,7 @@ use YAML;
 use DateTime::Format::W3CDTF;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Module::Changes::Formatter';
@@ -19,7 +19,7 @@ sub format {
     push @format => { global => { name => $changes->name } };
 
     for my $release ($changes->releases) {
-        my $version = $self->version_as_string($release->version);
+        my $version = $release->version_as_string;
         my $version_spec = {};
         $version_spec->{date} =
             DateTime::Format::W3CDTF->new->format_datetime($release->date);

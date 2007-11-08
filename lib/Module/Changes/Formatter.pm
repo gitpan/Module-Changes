@@ -4,31 +4,13 @@ use warnings;
 use strict;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Module::Changes::Base';
 
 
 __PACKAGE__->mk_abstract_accessors(qw(format));
-
-
-# Perl::Version offers ->normal() and ->numify(), but I don't like either for
-# Changes, so here is my format.
-
-sub version_as_string {
-    my ($self, $version) = @_;
-    # return $version->normal if $version->subversion;
-
-    $version->_format({
-        prefix => 'v',
-        printf => ['%d'],
-        extend => '.%02d',
-        alpha  => '_%02d',
-        suffix => '',
-        fields => scalar($version->components),
-    });
-}
 
 
 sub format_to_file {
@@ -67,12 +49,6 @@ This class inherits all methods from L<Module::Changes::Formatter>.
 
 An abstract method that is used to format a changes object. Individual
 formatters need to override and implement this method.
-
-=item version_as_string
-
-    print $formatter->version_as_string($release->version);
-
-Takes a release's version object and returns a string representation.
 
 =item format_to_file
 

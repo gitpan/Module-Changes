@@ -8,6 +8,9 @@ use Pod::Usage;
 use Perl::Version;
 
 
+our $VERSION = '0.02';
+
+
 sub usage ($;$$) {
     my ($message, $exitval, $verbose) = @_;
 

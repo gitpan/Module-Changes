@@ -6,7 +6,7 @@ use DateTime;
 use Perl::Version;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Module::Changes::Base';
@@ -15,6 +15,27 @@ use base 'Module::Changes::Base';
 __PACKAGE__
     ->mk_scalar_accessors(qw(version date author))
     ->mk_array_accessors(qw(changes tags));
+
+
+# Perl::Version offers ->normal() and ->numify(), but I don't like either for
+# Changes, so here is my format.
+
+sub version_as_string {
+    my $self = shift;
+
+    # How many fields to show? Don't show a subversion of '0'.
+    my @components = $self->version->components;
+    $self->version->components(2) if @components == 3 && $components[2] == 0;
+
+    $self->version->_format({
+        prefix => 'v',
+        printf => ['%d'],
+        extend => '.%02d',
+        alpha  => '_%02d',
+        suffix => '',
+        fields => scalar($self->version->components),
+    });
+}
 
 
 sub touch_date {
@@ -66,6 +87,12 @@ This class inherits all methods from L<Module::Changes::Base>.
 
 Set or get the release's version number. You need to use a L<Perl::Version>
 object.
+
+=item version_as_string
+
+    print $release->version_as_string;
+
+Takes the release's version object and returns a string representation.
 
 =item date
 

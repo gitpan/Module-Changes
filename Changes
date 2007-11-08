@@ -1,6 +1,14 @@
 ---
 - global:
     name: Module-Changes
+- v0.02:
+    author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - 'improved version_as_string, is now a method of Module::Changes::Release'
+      - added more tests
+    date: 2007-11-08T20:03:15Z
+    tags:
+      - NEWFEATURE
 - v0.01:
     author: 'Marcel Gruenauer <marcel@cpan.org>'
     changes:

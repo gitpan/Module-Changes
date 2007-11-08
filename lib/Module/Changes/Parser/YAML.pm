@@ -8,7 +8,7 @@ use DateTime::Format::W3CDTF;
 use Perl::Version;
 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 use base 'Module::Changes::Parser';
@@ -48,7 +48,7 @@ __END__
 
 =head1 NAME
 
-Module::Changes::Parsers::YAML - Parse a YAML Changes file into objects
+Module::Changes::Parser::YAML - Parse a YAML Changes file into objects
 
 =head1 SYNOPSIS
 

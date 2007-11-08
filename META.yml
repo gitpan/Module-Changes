@@ -28,4 +28,4 @@ requires:
   Perl::Version: 0
   YAML: 0
   perl: 5.6.0
-version: 0.01
+version: 0.02
