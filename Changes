@@ -1,0 +1,9 @@
+---
+- global:
+    name: Module-Changes
+- v0.01:
+    author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
+      - original version
+    date: 2007-11-08T15:51:54Z
+    tags: []
