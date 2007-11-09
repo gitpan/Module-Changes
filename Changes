@@ -4,6 +4,13 @@ global:
 releases:
   - author: 'Marcel Gruenauer <marcel@cpan.org>'
     changes:
+      - added requirement for DateTime::Format::DateParse
+    date: 2007-11-09T16:31:03Z
+    tags:
+      - BUGFIX
+    version: 0.05
+  - author: 'Marcel Gruenauer <marcel@cpan.org>'
+    changes:
       - changed YAML schema again to make it simpler
       - added YAML schema for Kwalify
       - added Module::Changes::Validator::YAML

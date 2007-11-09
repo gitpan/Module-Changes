@@ -7,6 +7,7 @@ requires 'Class::Accessor::Complex';
 requires 'Class::Accessor::Constructor';
 requires 'Class::Factory::Enhanced';
 requires 'DateTime';
+requires 'DateTime::Format::DateParse';
 requires 'DateTime::Format::Mail';
 requires 'DateTime::Format::W3CDTF';
 requires 'Getopt::Attribute';

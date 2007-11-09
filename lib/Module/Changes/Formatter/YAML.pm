@@ -6,7 +6,7 @@ use YAML;
 use DateTime::Format::W3CDTF;
 
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 use base 'Module::Changes::Formatter';

@@ -8,7 +8,7 @@ use Module::Changes;
 use Perl::Version;
 
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 use base 'Module::Changes::Parser';
