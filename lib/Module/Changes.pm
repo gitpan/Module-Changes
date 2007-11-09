@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 # inherit from Module::Changes::Base first so we get our constructor
@@ -18,6 +18,7 @@ __PACKAGE__->add_factory_type(
     formatter_yaml => 'Module::Changes::Formatter::YAML',
     formatter_free => 'Module::Changes::Formatter::Free',
     parser_yaml    => 'Module::Changes::Parser::YAML',
+    parser_free    => 'Module::Changes::Parser::Free',
 );
 
 
@@ -57,29 +58,30 @@ is C<04>.
 
 The layout of the YAML file is best demonstrated by an example:
 
-    - global:
-        name: Foo-Bar
-    - v0.03:
-        author: Marcel Gruenauer <marcel@cpan.org>
-        date: 2008-02-15T14:23:12-05:00
-        changes:
-          - Complete rewrite
-        tags:
-          - APICHANGE
-    - v0.02:
-        author: Marcel Gruenauer <marcel@cpan.org>
-        date: 2008-02-15T13:50:05-05:00
-        changes:
-          - Added this
-          - Changed that
-        tags:
-          - MINOR
-          - SECURITY
-    - v0.01:
-        author: Marcel Gruenauer <marcel@cpan.org>
-        date: 2008-01-29T09:46:20-05:00
-        changes:
-          - Initial release
+    global:
+      name: Foo-Bar
+    releases:
+      - v0.03:
+          author: Marcel Gruenauer <marcel@cpan.org>
+          date: 2008-02-15T14:23:12-05:00
+          changes:
+            - Complete rewrite
+          tags:
+            - APICHANGE
+      - v0.02:
+          author: Marcel Gruenauer <marcel@cpan.org>
+          date: 2008-02-15T13:50:05-05:00
+          changes:
+            - Added this
+            - Changed that
+          tags:
+            - MINOR
+            - SECURITY
+      - v0.01:
+          author: Marcel Gruenauer <marcel@cpan.org>
+          date: 2008-01-29T09:46:20-05:00
+          changes:
+            - Initial release
 
 The file starts with a declaration of global attributes. At the moment there
 is only one such attribute - the distribution name.
@@ -88,8 +90,8 @@ This is followed by any number of releases. Each release is a hash that has
 the version number (in L<Perl::Version> notation) as the key and the release
 details as the value.
 
-Both the global section and the releases are within an overall array so that
-the order is preserved - within a hash, the order is not guaranteed.
+The releases are within an array so that the order is preserved - within a
+hash, the order is not guaranteed.
 
 The release details are another hash, having keys for author and date, an
 array of change strings and an array of tag strings. The date is in

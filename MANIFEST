@@ -1,5 +1,6 @@
 bin/changes
 Changes
+eg/convert_changes_free2yaml.pl
 eg/README.txt
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
@@ -21,6 +22,7 @@ lib/Module/Changes/Formatter.pm
 lib/Module/Changes/Formatter/Free.pm
 lib/Module/Changes/Formatter/YAML.pm
 lib/Module/Changes/Parser.pm
+lib/Module/Changes/Parser/Free.pm
 lib/Module/Changes/Parser/YAML.pm
 lib/Module/Changes/Release.pm
 Makefile.PL

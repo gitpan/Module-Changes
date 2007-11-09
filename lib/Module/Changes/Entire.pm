@@ -5,7 +5,7 @@ use strict;
 use Module::Changes;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base 'Module::Changes::Base';

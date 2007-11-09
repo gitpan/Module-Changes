@@ -6,7 +6,7 @@ use DateTime;
 use Perl::Version;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base 'Module::Changes::Base';
@@ -28,7 +28,7 @@ sub version_as_string {
     $self->version->components(2) if @components == 3 && $components[2] == 0;
 
     $self->version->_format({
-        prefix => 'v',
+        prefix => '',
         printf => ['%d'],
         extend => '.%02d',
         alpha  => '_%02d',

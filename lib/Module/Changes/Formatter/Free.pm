@@ -6,7 +6,7 @@ use DateTime::Format::Mail;
 use YAML;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base 'Module::Changes::Formatter';

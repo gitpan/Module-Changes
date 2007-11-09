@@ -8,7 +8,7 @@ use Pod::Usage;
 use Perl::Version;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 sub usage ($;$$) {

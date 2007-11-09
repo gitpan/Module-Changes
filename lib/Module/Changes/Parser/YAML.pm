@@ -8,7 +8,7 @@ use DateTime::Format::W3CDTF;
 use Perl::Version;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base 'Module::Changes::Parser';
@@ -20,22 +20,18 @@ sub parse_string {
 
     my $changes = Module::Changes->make_object_for_type('entire');
 
-    for my $section (@$spec) {
-        my ($version, $version_spec) = %$section;
+    $changes->name($spec->{global}{name});
+    for my $release (@{ $spec->{releases} || []}) {
+        my ($version, $rel_spec) = %$release;
+        my $release = Module::Changes->make_object_for_type('release');
+        $release->version(Perl::Version->new($version));
+        
+        $release->date(DateTime::Format::W3CDTF->new
+            ->parse_datetime($rel_spec->{date})
+        );
 
-        if ($version eq 'global') {
-            $changes->name($version_spec->{name});
-        } else {
-            my $release = Module::Changes->make_object_for_type('release');
-            $release->version(Perl::Version->new($version));
-            
-            $release->date(DateTime::Format::W3CDTF->new
-                ->parse_datetime($version_spec->{date})
-            );
-
-            $release->$_($version_spec->{$_}) for qw(author changes tags);
-            $changes->releases_push($release);
-        }
+        $release->$_($rel_spec->{$_}) for qw(author changes tags);
+        $changes->releases_push($release);
     }
 
     $changes;
@@ -43,6 +39,7 @@ sub parse_string {
 
 
 1;
+
 
 __END__
 

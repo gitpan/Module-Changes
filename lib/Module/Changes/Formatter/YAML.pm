@@ -6,7 +6,7 @@ use YAML;
 use DateTime::Format::W3CDTF;
 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 use base 'Module::Changes::Formatter';
@@ -14,9 +14,8 @@ use base 'Module::Changes::Formatter';
 
 sub format {
     my ($self, $changes) = @_;
-    my @format;
 
-    push @format => { global => { name => $changes->name } };
+    my %format = ( global => { name => $changes->name } );
 
     for my $release ($changes->releases) {
         my $version = $release->version_as_string;
@@ -25,10 +24,10 @@ sub format {
             DateTime::Format::W3CDTF->new->format_datetime($release->date);
         $version_spec->{$_} = $release->$_ for qw(author changes tags);
 
-        push @format => { $version => $version_spec };
+        push @{ $format{releases} } => { $version => $version_spec };
     }
 
-    Dump \@format;
+    Dump \%format;
 }
 
 
