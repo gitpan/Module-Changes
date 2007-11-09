@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 # inherit from Module::Changes::Base first so we get our constructor
@@ -19,6 +19,7 @@ __PACKAGE__->add_factory_type(
     formatter_free => 'Module::Changes::Formatter::Free',
     parser_yaml    => 'Module::Changes::Parser::YAML',
     parser_free    => 'Module::Changes::Parser::Free',
+    validator_yaml => 'Module::Changes::Validator::YAML',
 );
 
 

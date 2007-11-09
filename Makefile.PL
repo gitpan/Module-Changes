@@ -10,9 +10,11 @@ requires 'DateTime';
 requires 'DateTime::Format::Mail';
 requires 'DateTime::Format::W3CDTF';
 requires 'Getopt::Attribute';
+requires 'Kwalify';
 requires 'Perl::Version';
 requires 'YAML';
 
+build_requires 'Test::Differences';
 build_requires 'Test::More' => '0.70';
 
 use_standard_tests(without => 'pod_coverage');

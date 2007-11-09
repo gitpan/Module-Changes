@@ -1,35 +1,54 @@
-package Module::Changes::Formatter::YAML;
+package Module::Changes::Validator::YAML;
 
 use warnings;
 use strict;
-use YAML;
-use DateTime::Format::W3CDTF;
+use Kwalify ();
+use YAML;;
 
 
 our $VERSION = '0.04';
 
 
-use base 'Module::Changes::Formatter';
+use base 'Module::Changes::Base';
 
 
-sub format {
-    my ($self, $changes) = @_;
+my $schema = Load(<<EOSCHEMA);
+type: map
+mapping:
+    global:
+        type: map
+        mapping:
+            name:
+                type: str
+                required: yes
+    releases:
+        type: seq
+        sequence:
+            - type: map
+              mapping:
+                  version:
+                      type: scalar
+                      required: yes
+                  author:
+                      type: str
+                      required: yes
+                  changes:
+                      type: seq
+                      sequence:
+                        - type: str
+                  date:
+                      type: str
+                      required: yes
+                  tags:
+                      type: seq
+                      sequence:
+                        - type: str
+EOSCHEMA
 
-    my %format = ( global => { name => $changes->name } );
 
-    for my $release ($changes->releases) {
-        push @{ $format{releases} } => {
-            version => $release->version_as_string,
-            date    => DateTime::Format::W3CDTF->new->format_datetime(
-                        $release->date
-                    ),
-            author  => $release->author,
-            changes => scalar($release->changes),
-            tags    => scalar($release->tags),
-        };
-    }
-
-    Dump \%format;
+sub validate {
+    my ($self, $yaml) = @_;
+    Kwalify::validate($schema, $yaml);
 }
 
 

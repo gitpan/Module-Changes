@@ -8,7 +8,7 @@ use DateTime::Format::W3CDTF;
 use Perl::Version;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base 'Module::Changes::Parser';
@@ -21,17 +21,16 @@ sub parse_string {
     my $changes = Module::Changes->make_object_for_type('entire');
 
     $changes->name($spec->{global}{name});
-    for my $release (@{ $spec->{releases} || []}) {
-        my ($version, $rel_spec) = %$release;
-        my $release = Module::Changes->make_object_for_type('release');
-        $release->version(Perl::Version->new($version));
-        
-        $release->date(DateTime::Format::W3CDTF->new
-            ->parse_datetime($rel_spec->{date})
-        );
-
-        $release->$_($rel_spec->{$_}) for qw(author changes tags);
-        $changes->releases_push($release);
+    for my $rel_spec (@{ $spec->{releases} || []}) {
+        $changes->releases_push(Module::Changes
+            ->make_object_for_type('release',
+            version => Perl::Version->new($rel_spec->{version}),
+            date    => DateTime::Format::W3CDTF->new->parse_datetime(
+                        $rel_spec->{date}),
+            author  => $rel_spec->{author},
+            changes => $rel_spec->{changes},
+            tags    => $rel_spec->{tags},
+        ));
     }
 
     $changes;

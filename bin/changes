@@ -8,7 +8,7 @@ use Pod::Usage;
 use Perl::Version;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 sub usage ($;$$) {
@@ -112,8 +112,19 @@ $changes->newest_release->version(Perl::Version->new($set_version))
 my $format_type = 'formatter_yaml';    # default
 $format_type = 'formatter_free' if $format_free;
 
+my $did_change_something = 0;
+for ($add_revision, $add_version, $add_subversion, $add_alpha,
+    $set_version, $add_change, $add_tag, $remove_tag, $author,
+    $touch_date, $name) {
+
+    # if the option is defined and something else than '0', it's a change
+
+    next unless defined && /^(?!0)./;
+    $did_change_something++;
+}
+
 my $formatter = Module::Changes->make_object_for_type($format_type);
-if ($show_entire) {
+if ($show_entire || !$did_change_something) {
     print $formatter->format($changes);
 } else {
     $formatter->format_to_file($changes, $filename);

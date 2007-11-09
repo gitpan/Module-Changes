@@ -6,7 +6,7 @@ use DateTime::Format::Mail;
 use YAML;
 
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 
 use base 'Module::Changes::Formatter';
@@ -30,7 +30,7 @@ sub format_line {
 sub format_release {
     my ($self, $release) = @_;
     my $text = sprintf "%s  %s (%s)\n",
-        $release->version_as_string;
+        $release->version_as_string,
         DateTime::Format::Mail->new->format_datetime($release->date),
         $release->author;
     $text .= $self->format_line($_) for grep { defined } $release->changes;
